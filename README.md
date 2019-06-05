@@ -4,7 +4,7 @@
 
 * node.js server
 * express-handlebars
-* server side computions about possible layouts
+* server side computions
 
 ### Joey Didner
 
@@ -16,6 +16,9 @@
 
 * Handlebars Profile page to save classes taken
 * Client side JS
+	* Automaticly send post requests on accounts page on keyup to update classesTaken, and classesWanted in realtime
+	* Automaticly send post requests to get the new list of prereqs needed
+	* talk to Nathan to figure out what on earth what on earth he is talking about
 * Design handlebars for templated pages
 
 ### Nathan Shaaban
