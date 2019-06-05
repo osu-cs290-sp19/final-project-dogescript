@@ -3,6 +3,7 @@
 ### August Lonibos
 
 * node.js server
+* package.json compiling handlebars in handlebars
 * express-handlebars
 * server side computions
 
@@ -14,7 +15,9 @@
 
 ### Max Okazaki
 
-* Handlebars Profile page to save classes taken
+* Handlebars Profile page to save classes taken (/views/account.handlebars)
+	* Has options to update classesTaken and classesWanted
+	* Has option to delete account (/delete)
 * Client side JS
 	* Automaticly send post requests on accounts page on keyup to update classesTaken, and classesWanted in realtime
 	* Automaticly send post requests to get the new list of prereqs needed
