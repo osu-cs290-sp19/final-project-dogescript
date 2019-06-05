@@ -36,30 +36,17 @@
 	"email": "",
 	"savedLayouts": [
 		{
-			"name": ""
-			"classes": [
-				{
-					"class":0
-					"term":0
-					"year":0
-					"times": [
-					{
-						"daysOfWeek":[]
-						"time":""
-					}
-				}
-			]
+			"classesWanted": []
+			"prereqsNeeded": []
 		}
 	],
-	"classes": [
+	"classesTaken": [
 		""
 	]
 }
 ```
 #### Notes
 
-* *classes* is in the form "CS 290"
-* *time* is in the form 15:20-18:20. Millitary time
-* *times* does not include finals, just the normal weeklys
+* all classes are in the form "CS 290"
 
 ## Layout of 4 year schedule
