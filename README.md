@@ -31,31 +31,31 @@
 # MongoDB
 
 ## User
-
->{
->	"email": "",
->	"savedLayouts": [
->		{
->			"name": ""
->			"classes": [
->				{
->					"class":0
->					"term":0
->					"year":0
->					"times": [
->					{
->						"daysOfWeek":[]
->						"time":""
->					}
->				}
->			]
->		}
->	],
->	"classes": [
->		""
->	]
->}
-
+```
+{
+	"email": "",
+	"savedLayouts": [
+		{
+			"name": ""
+			"classes": [
+				{
+					"class":0
+					"term":0
+					"year":0
+					"times": [
+					{
+						"daysOfWeek":[]
+						"time":""
+					}
+				}
+			]
+		}
+	],
+	"classes": [
+		""
+	]
+}
+```
 #### Notes
 
 * *classes* is in the form "CS 290"
