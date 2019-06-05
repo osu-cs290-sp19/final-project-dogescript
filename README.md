@@ -34,15 +34,9 @@
 ```
 {
 	"email": "",
-	"savedLayouts": [
-		{
-			"classesWanted": []
-			"prereqsNeeded": []
-		}
-	],
-	"classesTaken": [
-		""
-	]
+	"classesWanted": [],
+	"prereqsNeeded": [],
+	"classesTaken": []
 }
 ```
 #### Notes
