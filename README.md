@@ -9,8 +9,7 @@
 
 ### Joey Didner
 
-* Handlebars Page to show all possible options for when to take classes
-* Handlebars Page to view saved possibilities (should be same as above, just different server.js routing)
+* Handlebars Page to show what classes need to be taken including prereqs
 * CSS styling
 
 ### Max Okazaki
