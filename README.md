@@ -19,7 +19,6 @@
 	* Has option to delete account (/delete)
 * Client side JS
 	* Automaticly send post requests on accounts page on keyup to update classesTaken, and classesWanted in realtime
-	* Automaticly send post requests to get the new list of prereqs needed
 	* talk to Nathan to figure out what on earth what on earth he is talking about
 * Design handlebars for templated pages
 
