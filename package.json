@@ -1,0 +1,32 @@
+{
+  "name": "final-project-dogescript",
+  "version": "1.0.0",
+  "description": "THE FINAL PROJECT",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "prestart": "npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osu-cs290-sp19/final-project-dogescript.git"
+  },
+  "author": "August, Max, Nathan, and Joey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/osu-cs290-sp19/final-project-dogescript/issues"
+  },
+  "homepage": "https://github.com/osu-cs290-sp19/final-project-dogescript#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "handlebars": "^4.1.2",
+    "mongodb": "^3.2.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
