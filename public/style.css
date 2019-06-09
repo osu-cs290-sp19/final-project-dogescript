@@ -6,7 +6,7 @@
   overflow: hidden;
   background-color: #efdbdb;
   padding: 30px 15px; /* Large padding which will shrink on scroll (using JS) */
-  position: fixed; /* Sticky/fixed navbar */
+  position: relative; /* Sticky/fixed navbar */
   width: 100%;
   top: 0; /* At the top */
   z-index: 99;
@@ -47,6 +47,40 @@
   float: right;
   padding-right: 30px;
 }
+
+/* -------------------------------------------------------------------- */
+/* Styling for the forms and button */
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+#forms div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
 
 /* -------------------------------------------------------------------- */
 /* Styling for 404 page */
