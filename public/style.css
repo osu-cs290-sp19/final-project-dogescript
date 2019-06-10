@@ -101,3 +101,39 @@ input[type=submit]:hover {
   font-size: 36px;
   font-weight: 400;
 }
+
+
+/* -------------------------------------------------------------------- */
+/* Styling for viewPossible Boxes */
+
+.class-container {
+	margin: 50px 10%;
+	display: flex;
+	flex-wrap: wrap;
+	}
+
+  .class-card {
+    flex: 0 1 28%;
+    display: flex;
+    margin: 2px;
+    padding: 20px;
+    border: 1px solid #dadada;
+    border-radius: 2px;
+    background-color: #fff;
+  }
+
+
+  .class-name {
+    flex: 1 1 80%;
+    margin-left: 10px;
+  }
+
+  .class-name p {
+    margin: 0;
+  }
+
+  .class-name {
+    margin-top: 8px;
+    text-align: left;
+    font-weight: bold;
+  }
