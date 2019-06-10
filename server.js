@@ -28,6 +28,18 @@ app.get('/', function (req, res, next) {
   res.status(200).render('home');
 });
 
+app.get('/home', function (req, res, next) {
+  res.status(200).render('home');
+});
+
+app.get('/login', function (req, res, next) {
+  res.status(200).render('account');
+});
+
+app.get('/check', function (req, res, next) {
+  res.status(200).render('viewPossible');
+});
+
 // If invalid page
 app.get('*', function (req, res) {
   res.status(404).render('404', {});
