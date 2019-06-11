@@ -106,34 +106,37 @@ input[type=submit]:hover {
 /* -------------------------------------------------------------------- */
 /* Styling for viewPossible Boxes */
 
+#body-slot {
+  margin: 10px 20%;
+}
+
 .class-container {
 	margin: 50px 10%;
 	display: flex;
 	flex-wrap: wrap;
-	}
+}
 
-  .class-card {
-    flex: 0 1 28%;
-    display: flex;
-    margin: 2px;
-    padding: 20px;
-    border: 1px solid #dadada;
-    border-radius: 2px;
-    background-color: #fff;
-  }
+.class-card {
+  /*flex: 0 1 28%;*/
+  margin: 2px;
+  padding: 20px;
+  width:15%;
+  border: 1px solid #dadada;
+  border-radius: 2px;
+  background-color: #fff;
+}
 
+.class-name {
+  flex: 1 1 80%;:w
+  margin-left: 10px;
+}
 
-  .class-name {
-    flex: 1 1 80%;
-    margin-left: 10px;
-  }
+.class-name p {
+  margin: 0;
+}
 
-  .class-name p {
-    margin: 0;
-  }
-
-  .class-name {
-    margin-top: 8px;
-    text-align: left;
-    font-weight: bold;
-  }
+.class-name {
+  margin-top: 8px;
+  text-align: left;
+  font-weight: bold;
+}
