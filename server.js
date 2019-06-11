@@ -59,7 +59,16 @@ app.get('/login', function (req, res, next) {
   res.status(200).render('account');
 });
 
-app.get('/check', function (req, res, next) {
+app.get('/createAccount', function (req, res, next) {
+  res.status(200).render('createAccount');
+});
+
+app.get('/createAccountPost', function(req, res, next){
+  console.log(requesnt.body.username)
+  res.status(200).end();
+});
+
+app.get('/viewPossible', function (req, res, next) {
   res.status(200).render('viewPossible');
 });
 
