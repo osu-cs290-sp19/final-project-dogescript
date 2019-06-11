@@ -8,6 +8,22 @@ var MongoClient = require('mongodb').MongoClient;
 var app = express();
 var port = process.env.PORT || 3069;
 
+// fancy-dancy ES6 async
+var classData = fs.promises.readFile('./classes.json')
+                           .then(obj => JSON.parse(obj))
+                           .catch(err => console.log(err));
+
+function getReqString(classCode, callback) {
+  classData.then((data) => {
+    let classEntry = data.find(element => element.code === classCode);
+    let reqString = classEntry.restrictions.match(/:\s*(.+)[.]\s/)[1];
+    callback(reqString);
+  }).catch(err => console.log(err));
+}
+// usage:
+// getReqString("CS 162", function (str) { console.log(str); });
+
+
 // var mongoHost = process.env.MONGO_HOST;
 // var mongoPort = process.env.MONGO_PORT || 27017;
 // var mongoUser = process.env.MONGO_USER;
