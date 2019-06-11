@@ -36,7 +36,7 @@ MongoClient.connect("mongodb://cs290_shaabann:dogeFinalPassword@classmongo.engr.
 	if(err){
 		console.log(err);
 	} else {
-		dbClient=client
+		dbClient=client.db("cs290_shaabann").collection("users")
 	}
 });
 
@@ -65,9 +65,22 @@ app.get('/createAccount', function (req, res, next) {
 });
 
 app.post('/createAccount', function(req, res, next){
+  var user = {usernamei: req.body.username,classesWanted:[],prereqsNeeded:[],clasesTaken:[]}
   console.log(req.body.username)
-  
+  dbClient.insertOne(user,function(err,res){
+    if (err) throw err
+	console.log(user)
+	console.log("inserted");
+  });
   res.writeHead(302, {'Location':'home'})
+  res.end();
+});
+
+app.get('/debug',function(req,res,next){
+  dbClient.find({}).toArray(function(err,result){
+    if (err) throw err
+    res.status(200).render('debug',{users:result});
+  });
   res.end();
 });
 

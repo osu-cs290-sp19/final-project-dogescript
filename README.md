@@ -37,7 +37,7 @@
 ## User
 ```
 {
-	"email": "",
+	"username": "",
 	"classesWanted": [],
 	"prereqsNeeded": [],
 	"classesTaken": []

@@ -1,0 +1,17 @@
+{{#each users}}
+  <p>{{username}}</p>
+  <ul>
+  	{{#each classesTaken}}
+	  <li>{{this}}</li>
+	{{/#each}}
+  </ul>
+  	{{#each classesWanted}}
+	  <li>{{this}}</li>
+	{{/#each}}
+  </ul>
+  <ul>
+  	{{#each classesNeeded}}
+	  <li>{{this}}</li>
+	{{/#each}}
+  </ul>
+{{/each}}
