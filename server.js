@@ -84,8 +84,10 @@ app.get('/debug',function(req,res,next){
   res.end();
 });
 
+var classListMock = { classList: [ {className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"}, {className: "asdfds"} ] };
+
 app.get('/viewPossible', function (req, res, next) {
-  res.status(200).render('viewPossible');
+  res.status(200).render('viewPossible', classListMock);
 });
 
 // If invalid page
