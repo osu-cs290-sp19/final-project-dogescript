@@ -24,14 +24,21 @@ function getReqString(classCode, callback) {
 // getReqString("CS 162", function (str) { console.log(str); });
 
 
-// var mongoHost = process.env.MONGO_HOST;
-// var mongoPort = process.env.MONGO_PORT || 27017;
-// var mongoUser = process.env.MONGO_USER;
-// var mongoPassword = process.env.MONGO_PASSWORD;
-// var mongoDBName = process.env.MONGO_DB_NAME;
-//
-// var mongoUrl = `mongodb://${mongoUser}:${mongoPassword}@${mongoHost}:${mongoPort}/${mongoDBName}`;
-// var db = null;
+var mongoHost = "classmongo.engr.oregonstate.edu";
+var mongoPort = 27017;
+var mongoUser = "cs290_shaabann";
+var mongoPassword = "dogeFinalPassword";
+var mongoDBName = "c290_shaabann";
+
+var mongoUrl = `mongodb://${mongoUser}:${mongoPassword}@${mongoHost}:${mongoPort}/${mongoDBName}`;
+dbClient=null
+MongoClient.connect("mongodb://cs290_shaabann:dogeFinalPassword@classmongo.engr.oregonstate.edu:27017/c290_shaabann?authSource=cs290_shaabann&w=1", { useNewUrlParser: true }, function(err,client) {
+	if(err){
+		console.log(err);
+	} else {
+		dbClient=client
+	}
+});
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
