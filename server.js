@@ -43,6 +43,7 @@ MongoClient.connect("mongodb://cs290_shaabann:dogeFinalPassword@classmongo.engr.
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.use(express.static('public'));
@@ -59,24 +60,19 @@ app.get('/login', function (req, res, next) {
   res.status(200).render('account');
 });
 
-<<<<<<< HEAD
 app.get('/createAccount', function (req, res, next) {
   res.status(200).render('createAccount');
 });
 
-app.get('/createAccountPost', function(req, res, next){
-  console.log(requesnt.body.username)
-  res.status(200).end();
+app.post('/createAccount', function(req, res, next){
+  console.log(req.body.username)
+  
+  res.writeHead(302, {'Location':'home'})
+  res.end();
 });
 
 app.get('/viewPossible', function (req, res, next) {
   res.status(200).render('viewPossible');
-=======
-var classListMock = { classList: [ {className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"}, {className: "asdfds"} ] };
-
-app.get('/check', function (req, res, next) {
-  res.status(200).render('viewPossible', classListMock);
->>>>>>> 5c5dae1f605e6e325e1e29cdb9bc1ee921197b5e
 });
 
 // If invalid page
