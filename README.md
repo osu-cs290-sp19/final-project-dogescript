@@ -47,13 +47,11 @@
 ## Class Entry
 ```
 {
-    "key":"1",
     "code":"AAE 210",
     "title": "INTRO TO AROSPACE ENGINEERING",
     "crn":"57418",
-    "attribute_description":"bla bla bla boring",
-    "campus": "Oregon State - Corvallis",
-    "registration_restrictions": "Prerequisite: ENGR 211.   A minimum grade of C is ...",
+    "description":"bla bla bla boring",
+    "restrictions": "Prerequisite: ENGR 211.   A minimum grade of C is ...",
 }
 ```
 #### Notes
