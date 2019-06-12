@@ -79,7 +79,7 @@ app.get('/home', function (req, res, next) {
 	    params.classesWanted=result.classesWanted.join(", ")
 	  }
 	  if(result.classesNeeded){
-	    params.classesNeeded=new String(result.classesNeeded).replace('[','<span style=\"color:green;\">').replace(']','</span>')
+	    params.classesNeeded=new String(result.classesNeeded).replace(/\[/g,'<span style=\"color:green;\">').replace(/\]/g,'</span>')
 	  }
       res.status(200).render('home',params);
     });
