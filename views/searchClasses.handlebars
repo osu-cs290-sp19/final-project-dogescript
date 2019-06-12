@@ -1,0 +1,10 @@
+<script src="searchClasses.js"></script>
+<input id="searchClasses" onKeyUp="updateSearchClasses()">
+<div id="classes">
+		{{#each classes}}
+		<section>
+			<h3>{{@key}} - {{this.[0]}}</h3>
+			<p>{{this.[1]}}</p>
+		</section>
+		{{/each}}
+</div>

@@ -11,6 +11,7 @@ var app = express();
 var port = process.env.PORT || 3069;
 
 var classData = JSON.parse(fs.readFileSync('./classes.json'));
+var classesData = JSON.parse(fs.readFileSync('./classes-title-description.json'));
 
 // usage:
 // getReqString("CS 162", function (str) { console.log(str); });
@@ -70,7 +71,6 @@ app.get('/home', function (req, res, next) {
     dbClient.find({_id:new ObjectId(req.cookies["userid"])}).toArray(function(err,result){
       if (err) throw err
 	  result=result[0]
-	  console.log(result)
 	  var params = {}
 	  if(result.classesTaken){
 	    params.classesTaken=result.classesTaken.join(", ")
@@ -96,7 +96,6 @@ app.post('/home', function(req,res,next){
 	for (var i=0;i<classesWanted.length;i++){
 		classesNeeded.push(getReqString(classesWanted[i],classesTaken));
 	}
-	console.log(getReqString("CS 290",["CS 161"]))
 	dbClient.updateOne({_id:new ObjectId(req.cookies["userid"])},{$set:{classesTaken:classesTaken,classesWanted:classesWanted,classesNeeded:classesNeeded}},function(err,mongoRes){
       if (err) throw err
 	  res.writeHead(302,{'Location':'home'})
@@ -109,18 +108,10 @@ app.post('/home', function(req,res,next){
 });
 
 app.get('/login', function (req, res, next) {
-  res.status(200).render('account');
+  res.status(200).render('account',{loggedIn:"userid" in req.cookies});
 });
 
-app.get('/createAccount', function (req, res, next) {
-  var params = {}
-  if ("failed" in req.query){
-    params={message:"That username is already taken, please try another"}
-  }
-  res.status(200).render('createAccount',params);
-});
-
-app.post('/createAccount', function(req, res, next){
+app.post('/login', function(req, res, next){
   dbClient.find({username:req.body.username}).toArray(function(err,result){
     if (err) throw err
     if (result.length==0) {
@@ -132,17 +123,22 @@ app.post('/createAccount', function(req, res, next){
 		res.end()
   	  });
 	} else {
-      res.writeHead(302,{'Location':'createAccount?failed'})
+	  //already has acount, login with it
+      res.cookie('userid',String(result[0]._id),{maxAge:900000})
+      res.writeHead(302, {'Location':'home'})
 	  res.end()
 	}
   });
+});
+
+app.get('/searchClasses',function(req, res, next){
+  res.status(200).render('searchClasses',{classes:classesData});
 });
 
 app.get('/deleteAccount',function(req,res,next){
   if ('userid' in req.cookies){
     dbClient.deleteOne({_id:new ObjectId(req.cookies["userid"])},function(err,obj){
       if (err) throw err
-	  console.log(req.cookies["userid"]+" removed");
       res.clearCookie('userid')
       res.writeHead(302,{'Location':'login'})
       res.end()

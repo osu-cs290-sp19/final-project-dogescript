@@ -1,6 +1,13 @@
-<div class="clicky">
-  <a href="createAccount">Create a new account</a>
-</div>
-<div class="clicky">
-  <a href="deleteAccount">Delete your account</a>
-</div>
+{{#if loggedIn}}
+		<div class="clicky">
+		  <a href="deleteAccount">Delete your account</a>
+		</div>
+{{else}}
+		<form acrion="./login" method="post">
+			{{#if message}}
+			<h2 style="color:red">{{message}}</h2>
+			{{/if}}
+			<input type="text" name="username" placeholder="username"></input>
+			<input type="submit" value="Submit"></input>
+		</form>
+{{/if}}
