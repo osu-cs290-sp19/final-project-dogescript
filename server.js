@@ -58,8 +58,9 @@ app.get('/home', function (req, res, next) {
   if('userid' in req.cookies) {
     dbClient.find({_id:new ObjectId(req.cookies["userid"])}).toArray(function(err,result){
       if (err) throw err
+	  result=result[0]
 	  console.log(result)
-      res.status(200).render('home',result);
+      res.status(200).render('home',{classesWanted:result.classesWanted.join(", "),classesTaken:result.classesTaken.join(", ")});
     });
   } else {
     res.writeHead(302,{'Location':'login'})
