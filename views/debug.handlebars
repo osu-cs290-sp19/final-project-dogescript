@@ -1,17 +1,24 @@
 {{#each users}}
-  <p>{{username}}</p>
-  <ul>
-  	{{#each classesTaken}}
-	  <li>{{this}}</li>
-	{{/#each}}
-  </ul>
-  	{{#each classesWanted}}
-	  <li>{{this}}</li>
-	{{/#each}}
-  </ul>
-  <ul>
-  	{{#each classesNeeded}}
-	  <li>{{this}}</li>
-	{{/#each}}
-  </ul>
+  <div style="padding:8px;">
+    <p>Username: {{username}}</p>
+	<p>Id: {{_id}}</p>
+	<p>Classes Taken:</p>
+	<ul>
+	  {{#each classesTaken}}
+	    <li>{{this}}</li>
+	  {{/each}}
+	</ul>
+	<p>Classes Wanted:</p>
+	<ul>
+	  {{#each classesWanted}}
+	    <li>{{this}}</li>
+	  {{/each}}
+	</ul>
+	<p>Classes Needed:</p>
+	<ul>
+	  {{#each classesNeeded}}
+        <li>{{this}}</li>
+	  {{/each}}
+	</ul>
+  </div>
 {{/each}}

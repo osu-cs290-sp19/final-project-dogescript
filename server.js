@@ -4,6 +4,8 @@ var express = require('express');
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID
+var cookieParser = require('cookie-parser')
 
 var app = express();
 var port = process.env.PORT || 3069;
@@ -33,15 +35,15 @@ var mongoDBName = "c290_shaabann";
 var mongoUrl = `mongodb://${mongoUser}:${mongoPassword}@${mongoHost}:${mongoPort}/${mongoDBName}`;
 dbClient=null
 MongoClient.connect("mongodb://cs290_shaabann:dogeFinalPassword@classmongo.engr.oregonstate.edu:27017/c290_shaabann?authSource=cs290_shaabann&w=1", { useNewUrlParser: true }, function(err,client) {
-	if(err){
-		console.log(err);
-	} else {
-		dbClient=client.db("cs290_shaabann").collection("users")
-	}
+  if(err) throw err
+  dbClient=client.db("cs290_shaabann").collection("users")
+  console.log("connected to Mongo!")
 });
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+
+app.use(cookieParser())
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -53,7 +55,29 @@ app.get('/', function (req, res, next) {
 });
 
 app.get('/home', function (req, res, next) {
-  res.status(200).render('home');
+  if('userid' in req.cookies) {
+    dbClient.find({_id:new ObjectId(req.cookies["userid"])}).toArray(function(err,result){
+      if (err) throw err
+	  console.log(result)
+      res.status(200).render('home',result);
+    });
+  } else {
+    res.writeHead(302,{'Location':'login'})
+	res.end()
+  }
+});
+app.post('/home', function(req,res,next){
+  if ('userid' in req.cookies){
+    console.log(req.body)
+	dbClient.updateOne({_id:new ObjectId(req.cookies["userid"])},{$set:{classesTaken:req.body.classesTaken.split(",").map(s => s.trim()),classesWanted:req.body.classesWanted.split(",").map(s => s.trim())}},function(err,mongoRes){
+      if (err) throw err
+	  res.writeHead(302,{'Location':'home'})
+	  res.end()
+    });
+  } else {
+    res.writeHead(302,{'Location':'login'})
+	res.end()
+  }
 });
 
 app.get('/login', function (req, res, next) {
@@ -65,15 +89,13 @@ app.get('/createAccount', function (req, res, next) {
 });
 
 app.post('/createAccount', function(req, res, next){
-  var user = {usernamei: req.body.username,classesWanted:[],prereqsNeeded:[],clasesTaken:[]}
-  console.log(req.body.username)
-  dbClient.insertOne(user,function(err,res){
+  var user = {username: req.body.username,classesWanted:[],prereqsNeeded:[],clasesTaken:[]}
+  dbClient.insertOne(user,function(err,mongoRes){
     if (err) throw err
-	console.log(user)
-	console.log("inserted");
+	res.cookie('userid',String(mongoRes.insertedId),{maxAge:900000})
+    res.writeHead(302, {'Location':'home'})
+	res.end()
   });
-  res.writeHead(302, {'Location':'home'})
-  res.end();
 });
 
 app.get('/debug',function(req,res,next){
@@ -81,7 +103,14 @@ app.get('/debug',function(req,res,next){
     if (err) throw err
     res.status(200).render('debug',{users:result});
   });
-  res.end();
+});
+
+app.get('/flush',function(req,res,next){
+  dbClient.deleteMany({},function(err,obj){
+    if (err) throw err
+	console.log("flushed db")
+	res.end();
+  });
 });
 
 app.get('/viewPossible', function (req, res, next) {
