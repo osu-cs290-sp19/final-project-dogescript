@@ -50,6 +50,8 @@ app.use(bodyParser.json());
 
 app.use(express.static('public'));
 
+function generate
+
 app.get('/', function (req, res, next) {
   res.status(200).render('home');
 });
@@ -79,6 +81,8 @@ app.post('/home', function(req,res,next){
     console.log(req.body)
 	dbClient.updateOne({_id:new ObjectId(req.cookies["userid"])},{$set:{classesTaken:req.body.classesTaken.split(",").map(s => s.trim()),classesWanted:req.body.classesWanted.split(",").map(s => s.trim())}},function(err,mongoRes){
       if (err) throw err
+	  //update the classesNeeded param
+      
 	  res.writeHead(302,{'Location':'home'})
 	  res.end()
     });
@@ -94,14 +98,13 @@ app.get('/login', function (req, res, next) {
 
 app.get('/createAccount', function (req, res, next) {
   var params = {}
-  if ("query" in res && "failed" in res.query){
+  if ("failed" in req.query){
     params={message:"That username is already taken, please try another"}
   }
   res.status(200).render('createAccount',params);
 });
 
 app.post('/createAccount', function(req, res, next){
-  console.log(req.body.username)
   dbClient.find({username:req.body.username}).toArray(function(err,result){
     if (err) throw err
     if (result.length==0) {
