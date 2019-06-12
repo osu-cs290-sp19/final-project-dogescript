@@ -2,10 +2,10 @@
   <!-- change this action to whatever it needs to be to send the data -->
   <form action="/home" method="post">
     <label for="classesWanted">Classes Wanted</label>
-    <input {{#if classesWanted}}value="{{classesWanted}}"{{/if}} type="text" id="classesWanted" name="classesWanted" placeholder="List classes you want to take..">
+    <input {{#if classesWanted}}value="{{classesWanted}}"{{/if}} type="text" id="classesWanted" name="classesWanted" placeholder="List classes you want to take.. (ex. 'CS 162, CS 290')">
 
     <label for="classesTaken">Classes Taken</label>
-    <input {{#if classesTaken}}value="{{classesTaken}}"{{/if}} type="text" id="classesTaken" name="classesTaken" placeholder="List classes you have taken..">
+    <input {{#if classesTaken}}value="{{classesTaken}}"{{/if}} type="text" id="classesTaken" name="classesTaken" placeholder="List classes you have taken.. (ex. 'CS 161, CS 160')">
 
     <input type="submit" value="Submit" onclick="">
   </form>
