@@ -48,6 +48,7 @@
   padding-right: 30px;
 }
 
+
 /* -------------------------------------------------------------------- */
 /* Styling for the forms and button */
 input[type=text], select {
@@ -60,7 +61,7 @@ input[type=text], select {
   box-sizing: border-box;
 }
 
-input[type=submit] {
+.clicky, input[type=submit] {
   width: 100%;
   background-color: #4CAF50;
   color: white;
@@ -71,7 +72,16 @@ input[type=submit] {
   cursor: pointer;
 }
 
-input[type=submit]:hover {
+.clicky {
+  text-align: center;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.clicky:hover, input[type=submit]:hover {
   background-color: #45a049;
 }
 
