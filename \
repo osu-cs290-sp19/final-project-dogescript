@@ -10,7 +10,11 @@ var cookieParser = require('cookie-parser')
 var app = express();
 var port = process.env.PORT || 3069;
 
-var classData = JSON.parse(fs.readFileSync('./classes.json'));
+// fancy-dancy ES6 async
+var classData = fs.promises.readFile('./classes.json')
+                           .then(obj => JSON.parse(obj))
+                           .catch(err => console.log(err));
+
 
 // usage:
 // getReqString("CS 162", function (str) { console.log(str); });
@@ -19,9 +23,9 @@ function getReqString(classCode,classesTaken) {
 	if(!(classCode in classData)){
 		return classCode
 	}
-	if(classesTaken.includes(classCode)){
+	if(classCode in classesTaken){
 		return "["+classCode+"]"//read this and parce into green text later
-    }
+	}
 	var string = "("+classCode+" and "+classData[classCode]+")"
 	if(classData[classCode]==""){
 		string=classCode
@@ -30,7 +34,7 @@ function getReqString(classCode,classesTaken) {
 		if(matches!=null){
 				var strMatch = ""
 				for(var i=0;i<matches.length;i++){
-					string=string.replace(matches[i],getReqString(matches[i].substring(1,matches[i].length-1),classesTaken))
+					string=string.replace(matches[i],getReqString(matches[i].substring(1,matches[i].length-1)))
 				}
 		}
 	}
@@ -61,6 +65,8 @@ app.use(bodyParser.json());
 
 app.use(express.static('public'));
 
+function generate
+
 app.get('/', function (req, res, next) {
   res.status(200).render('home');
 });
@@ -78,9 +84,6 @@ app.get('/home', function (req, res, next) {
 	  if(result.classesWanted){
 	    params.classesWanted=result.classesWanted.join(", ")
 	  }
-	  if(result.classesNeeded){
-	    params.classesNeeded=new String(result.classesNeeded).replace('[','<span style=\"color:green;\">').replace(']','</span>')
-	  }
       res.status(200).render('home',params);
     });
   } else {
@@ -90,13 +93,13 @@ app.get('/home', function (req, res, next) {
 });
 app.post('/home', function(req,res,next){
   if ('userid' in req.cookies){
+    console.log(req.body)
 	var classesWanted=req.body.classesWanted.split(",").map(s => s.trim())
 	var classesTaken=req.body.classesTaken.split(",").map(s => s.trim())
 	var classesNeeded=[]
 	for (var i=0;i<classesWanted.length;i++){
-		classesNeeded.push(getReqString(classesWanted[i],classesTaken));
+		classesNeeded.push(getReqString(classesWanted,classesTaken));
 	}
-	console.log(getReqString("CS 290",["CS 161"]))
 	dbClient.updateOne({_id:new ObjectId(req.cookies["userid"])},{$set:{classesTaken:classesTaken,classesWanted:classesWanted,classesNeeded:classesNeeded}},function(err,mongoRes){
       if (err) throw err
 	  res.writeHead(302,{'Location':'home'})
@@ -136,21 +139,7 @@ app.post('/createAccount', function(req, res, next){
 	  res.end()
 	}
   });
-});
 
-app.get('/deleteAccount',function(req,res,next){
-  if ('userid' in req.cookies){
-    dbClient.deleteOne({_id:new ObjectId(req.cookies["userid"])},function(err,obj){
-      if (err) throw err
-	  console.log(req.cookies["userid"]+" removed");
-      res.clearCookie('userid')
-      res.writeHead(302,{'Location':'login'})
-      res.end()
-    });
-  } else {
-    res.writeHead(302,{'Location':'login'})
-	res.end()
-  }
 });
 
 app.get('/debug',function(req,res,next){
@@ -166,6 +155,12 @@ app.get('/flush',function(req,res,next){
 	console.log("flushed db")
 	res.end();
   });
+});
+
+var classListMock = { classList: [ {className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"},{className: "ads"}, {className: "asdfds"} ] };
+
+app.get('/viewPossible', function (req, res, next) {
+  res.status(200).render('viewPossible', classListMock);
 });
 
 // If invalid page
