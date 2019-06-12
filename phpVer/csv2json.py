@@ -20,9 +20,9 @@ with open("classes-extended.csv") as f:
 	for line in f:
 		line=line[:-1]
 		parts=line.split(",")
-	#	classes[parts[1]]=[parts[2],parts[4],parts[28]]
-		classes[parts[1]]=parseString(parts[28])
-	open("classes.json","w").write(json.dumps(classes))
+		classes[parts[1]]=[parts[2],parts[4],parts[28]]
+	#	classes[parts[1]]=parseString(parts[28])
+	open("classes.json","w").write(json.dumps(classes,sort_keys=True))
 
 exit()
 
