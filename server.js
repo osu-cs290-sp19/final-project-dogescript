@@ -60,7 +60,14 @@ app.get('/home', function (req, res, next) {
       if (err) throw err
 	  result=result[0]
 	  console.log(result)
-      res.status(200).render('home',{classesWanted:result.classesWanted.join(", "),classesTaken:result.classesTaken.join(", ")});
+	  var params = {}
+	  if(result.classesTaken){
+	    params.classesTaken=result.classesTaken.join(", ")
+	  }
+	  if(result.classesWanted){
+	    params.classesWanted=result.classesWanted.join(", ")
+	  }
+      res.status(200).render('home',params);
     });
   } else {
     res.writeHead(302,{'Location':'login'})
@@ -86,17 +93,31 @@ app.get('/login', function (req, res, next) {
 });
 
 app.get('/createAccount', function (req, res, next) {
-  res.status(200).render('createAccount');
+  var params = {}
+  if ("query" in res && "failed" in res.query){
+    params={message:"That username is already taken, please try another"}
+  }
+  res.status(200).render('createAccount',params);
 });
 
 app.post('/createAccount', function(req, res, next){
-  var user = {username: req.body.username,classesWanted:[],prereqsNeeded:[],clasesTaken:[]}
-  dbClient.insertOne(user,function(err,mongoRes){
+  console.log(req.body.username)
+  dbClient.find({username:req.body.username}).toArray(function(err,result){
     if (err) throw err
-	res.cookie('userid',String(mongoRes.insertedId),{maxAge:900000})
-    res.writeHead(302, {'Location':'home'})
-	res.end()
+    if (result.length==0) {
+      var user = {username: req.body.username,classesWanted:[],prereqsNeeded:[],clasesTaken:[]}
+      dbClient.insertOne(user,function(err,mongoRes){
+        if (err) throw err
+    	res.cookie('userid',String(mongoRes.insertedId),{maxAge:900000})
+    	res.writeHead(302, {'Location':'home'})
+		res.end()
+  	  });
+	} else {
+      res.writeHead(302,{'Location':'createAccount?failed'})
+	  res.end()
+	}
   });
+
 });
 
 app.get('/debug',function(req,res,next){
